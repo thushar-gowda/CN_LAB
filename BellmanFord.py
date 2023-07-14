@@ -1,0 +1,33 @@
+class Graph():
+    
+    def __init__(self,vertices):
+        self.V=vertices
+        self.graph=[]
+        
+    def addEdge(self,u,v,w):
+        self.graph.append([u,v,w])
+        
+    def printSolution(self,dist):
+        print("Vertices \t Distance from Source")
+        for i in range(self.V):
+            print(i,"\t\t",dist[i])
+            
+    def Bellmanford(self,src):
+        dist=[1e7]*self.V
+        dist[src]=0
+        for _ in range(self.V-1):
+            for u,v,w in self.graph:
+                if dist[u]!=1e7 and dist[v]>dist[u]+w:
+                    dist[v]=dist[u]+w
+        self.printSolution(dist)
+        
+g=Graph(5)
+g.addEdge(0,1,-1)
+g.addEdge(0,2,4)
+g.addEdge(1,2,3)
+g.addEdge(1,3,2)
+g.addEdge(1,4,2)
+g.addEdge(3,2,5)
+g.addEdge(3,1,1)
+g.addEdge(4,3,-3)
+g.Bellmanford(0)
